@@ -5,6 +5,7 @@ from bot_logic import gen_pass
 intents = discord.Intents.default()
 intents.message_content = True
 
+mode = 0
 bot = commands.Bot(command_prefix='$', intents=intents)
 @bot.event
 async def on_ready():
@@ -13,18 +14,19 @@ async def on_ready():
 @bot.command()
 async def hello(ctx):
     await ctx.send(f'Cześć, jestem bot{bot.user}!')
-
-@bot.command()
-async def pasw(ctx):
-    await ctx.send(gen_pass(10))
-
-@bot.command()  
-async def heh(ctx, count_heh = 5):
-    await ctx.send("he" * count_heh)
-
-@bot.command()
-async def pa(ctx):
-    await ctx.send(f'Papa')
-
+    mode = 1
+if mode == 1:
+    @bot.command()
+    async def pasw(ctx):
+        await ctx.send(gen_pass(10))
+    
+    @bot.command()  
+    async def heh(ctx, count_heh = 5):
+        await ctx.send("he" * count_heh)
+    
+    @bot.command()
+    async def pa(ctx):
+        await ctx.send(f'Papa')
+        mode = 0
 
 bot.run("MTE2MjA1NTg0MjYwMjk1NDc4Mg.G2mpFF.6Y65jgG4juFZfNt1MFtLqKq2bn28R2Dls2t-e4")
